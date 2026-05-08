@@ -64,8 +64,8 @@ The workflow in `.github/workflows/dockerhub.yml` builds the image on pull reque
 
 Create these repository secrets before publishing:
 
-- `DOCKERHUB_USERNAME`
-- `DOCKERHUB_TOKEN`
+- `DOCKER_USERNAME`
+- `DOCKER_TOKEN`
 
 Published tags:
 
