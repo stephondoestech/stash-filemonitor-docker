@@ -21,9 +21,10 @@
   <DonateText/>
   <DonateLink/>
   <Requires>Build the local image first with: docker build -t stash-filemonitor:local /mnt/user/appdata/stash-filemonitor-docker</Requires>
-  <Config Name="FileMonitor Plugin Directory" Target="/filemonitor" Default="/mnt/user/appdata/stash/plugins/community/filemonitor" Mode="ro" Description="Existing Stash FileMonitor plugin directory." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/stash/plugins/community/filemonitor</Config>
+  <Config Name="FileMonitor Plugin Directory" Target="/filemonitor" Default="/mnt/user/appdata/stash/plugins/community/filemonitor" Mode="rw" Description="Existing Stash FileMonitor plugin directory. FileMonitor writes filemonitor.log in this directory, so it must be writable." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/stash/plugins/community/filemonitor</Config>
   <Config Name="Media Path" Target="/data" Default="/mnt/user/Media" Mode="ro" Description="Media path to watch. The container target should match the path Stash uses in library settings." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/Media</Config>
   <Config Name="Stash URL" Target="STASH_URL" Default="http://127.0.0.1:9999" Mode="" Description="Base URL for Stash. Do not include /graphql." Type="Variable" Display="always" Required="true" Mask="false">http://127.0.0.1:9999</Config>
   <Config Name="Stash API Key" Target="STASH_API_KEY" Default="" Mode="" Description="Stash API key, required when Stash auth is enabled." Type="Variable" Display="always" Required="false" Mask="true"></Config>
   <Config Name="Docker Mapping Config" Target="FILEMONITOR_DOCKER_CONFIG" Default="" Mode="" Description="Optional path to a mounted docker-compose.yml or mapping file for FileMonitor --docker path translation." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Trace Mode" Target="FILEMONITOR_TRACE" Default="false" Mode="" Description="Set to true to pass --trace to FileMonitor for debug logging." Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
 </Container>

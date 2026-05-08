@@ -1,11 +1,17 @@
+ifneq (,$(wildcard .env))
+include .env
+export
+endif
+
 IMAGE ?= stash-filemonitor:local
 CONTAINER ?= stash-filemonitor
-STASH_URL ?= http://127.0.0.1:9999
+STASH_URL ?=
 STASH_API_KEY ?=
 PLUGIN_DIR ?= /mnt/user/appdata/stash/plugins/community/filemonitor
 MEDIA_HOST_PATH ?= /mnt/user/Media
 MEDIA_CONTAINER_PATH ?= /data
 FILEMONITOR_DOCKER_CONFIG ?=
+FILEMONITOR_TRACE ?= false
 
 .PHONY: build run logs stop rm restart shell
 
@@ -20,7 +26,8 @@ run:
 		-e STASH_URL="$(STASH_URL)" \
 		-e STASH_API_KEY="$(STASH_API_KEY)" \
 		-e FILEMONITOR_DOCKER_CONFIG="$(FILEMONITOR_DOCKER_CONFIG)" \
-		-v "$(PLUGIN_DIR):/filemonitor:ro" \
+		-e FILEMONITOR_TRACE="$(FILEMONITOR_TRACE)" \
+		-v "$(PLUGIN_DIR):/filemonitor:rw" \
 		-v "$(MEDIA_HOST_PATH):$(MEDIA_CONTAINER_PATH):ro" \
 		$(IMAGE)
 
@@ -41,6 +48,7 @@ shell:
 		-e STASH_URL="$(STASH_URL)" \
 		-e STASH_API_KEY="$(STASH_API_KEY)" \
 		-e FILEMONITOR_DOCKER_CONFIG="$(FILEMONITOR_DOCKER_CONFIG)" \
-		-v "$(PLUGIN_DIR):/filemonitor:ro" \
+		-e FILEMONITOR_TRACE="$(FILEMONITOR_TRACE)" \
+		-v "$(PLUGIN_DIR):/filemonitor:rw" \
 		-v "$(MEDIA_HOST_PATH):$(MEDIA_CONTAINER_PATH):ro" \
 		$(IMAGE) sh

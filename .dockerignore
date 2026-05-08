@@ -1,0 +1,6 @@
+.env
+.git
+.github
+*.log
+README.md
+unraid-template.xml

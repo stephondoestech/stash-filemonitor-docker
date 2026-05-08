@@ -16,6 +16,23 @@ The image includes Python dependencies only. It expects the FileMonitor plugin d
 docker build -t stash-filemonitor:local .
 ```
 
+## Environment File
+
+The Makefile loads `.env` automatically when it exists.
+
+```sh
+cp .env.example .env
+```
+
+Set at least:
+
+```dotenv
+STASH_URL=https://stash.lan.stephondoestech.com
+STASH_API_KEY=YOUR_API_KEY
+MEDIA_HOST_PATH=/mnt/user/deep_index
+MEDIA_CONTAINER_PATH=/data/index
+```
+
 ## Unraid Run Command
 
 Adjust the media mount so the container path matches the path Stash uses in its library configuration.
@@ -25,9 +42,9 @@ docker run -d \
   --name stash-filemonitor \
   --restart unless-stopped \
   --network host \
-  -e STASH_URL="http://127.0.0.1:9999" \
+  -e STASH_URL="https://stash.lan.stephondoestech.com" \
   -e STASH_API_KEY="YOUR_API_KEY" \
-  -v /mnt/user/appdata/stash/plugins/community/filemonitor:/filemonitor:ro \
+  -v /mnt/user/appdata/stash/plugins/community/filemonitor:/filemonitor:rw \
   -v /mnt/user/Media:/data:ro \
   stash-filemonitor:local
 ```
@@ -46,7 +63,7 @@ docker run -d \
   -e STASH_URL="http://127.0.0.1:9999" \
   -e STASH_API_KEY="YOUR_API_KEY" \
   -e FILEMONITOR_DOCKER_CONFIG="/config/docker-compose.yml" \
-  -v /mnt/user/appdata/stash/plugins/community/filemonitor:/filemonitor:ro \
+  -v /mnt/user/appdata/stash/plugins/community/filemonitor:/filemonitor:rw \
   -v /mnt/user/appdata/stash-filemonitor:/config:ro \
   -v /mnt/user/Media:/data:ro \
   stash-filemonitor:local

@@ -9,8 +9,7 @@ LABEL org.opencontainers.image.title="Stash FileMonitor Docker Wrapper" \
 
 ENV PYTHONUNBUFFERED=1 \
     PIP_ROOT_USER_ACTION=ignore \
-    FILEMONITOR_DIR=/filemonitor \
-    STASH_URL=http://127.0.0.1:9999
+    FILEMONITOR_DIR=/filemonitor
 
 WORKDIR /app
 
