@@ -67,10 +67,6 @@ Create these repository secrets before publishing:
 - `DOCKERHUB_USERNAME`
 - `DOCKERHUB_TOKEN`
 
-Optional repository variable:
-
-- `DOCKERHUB_NAMESPACE`, if your Docker Hub namespace differs from the GitHub repository owner
-
 Published tags:
 
 - `latest` from the default branch
