@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>stash-filemonitor</Name>
+  <Repository>stash-filemonitor:local</Repository>
+  <Registry/>
+  <Network>host</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/David-Maisonave/Axter-Stash</Support>
+  <Project>https://github.com/David-Maisonave/Axter-Stash</Project>
+  <Overview>Runs the upstream Stash FileMonitor plugin in a Python sidecar container. This template/image is only an Unraid-friendly wrapper; it is not the FileMonitor plugin itself. The FileMonitor plugin is created and maintained upstream at https://github.com/David-Maisonave/Axter-Stash.</Overview>
+  <Category>MediaApp:Tools:</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/stashapp/stash/develop/ui/v2.5/src/assets/favicon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Build the local image first with: docker build -t stash-filemonitor:local /mnt/user/appdata/stash-filemonitor-docker</Requires>
+  <Config Name="FileMonitor Plugin Directory" Target="/filemonitor" Default="/mnt/user/appdata/stash/plugins/community/filemonitor" Mode="ro" Description="Existing Stash FileMonitor plugin directory." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/stash/plugins/community/filemonitor</Config>
+  <Config Name="Media Path" Target="/data" Default="/mnt/user/Media" Mode="ro" Description="Media path to watch. The container target should match the path Stash uses in library settings." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/Media</Config>
+  <Config Name="Stash URL" Target="STASH_URL" Default="http://127.0.0.1:9999" Mode="" Description="Base URL for Stash. Do not include /graphql." Type="Variable" Display="always" Required="true" Mask="false">http://127.0.0.1:9999</Config>
+  <Config Name="Stash API Key" Target="STASH_API_KEY" Default="" Mode="" Description="Stash API key, required when Stash auth is enabled." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="Docker Mapping Config" Target="FILEMONITOR_DOCKER_CONFIG" Default="" Mode="" Description="Optional path to a mounted docker-compose.yml or mapping file for FileMonitor --docker path translation." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+</Container>
