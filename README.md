@@ -27,7 +27,7 @@ cp .env.example .env
 Set at least:
 
 ```dotenv
-STASH_URL=https://stash.lan.stephondoestech.com
+STASH_URL=https://stash.lan.stephondoestech.com:443
 STASH_API_KEY=YOUR_API_KEY
 MEDIA_HOST_PATH=/mnt/user/deep_index
 MEDIA_CONTAINER_PATH=/data/index
@@ -42,14 +42,21 @@ docker run -d \
   --name stash-filemonitor \
   --restart unless-stopped \
   --network host \
-  -e STASH_URL="https://stash.lan.stephondoestech.com" \
+  -e STASH_URL="https://stash.lan.stephondoestech.com:443" \
   -e STASH_API_KEY="YOUR_API_KEY" \
+  -e FILEMONITOR_ALLOW_DOCKER="true" \
   -v /mnt/user/appdata/stash/plugins/community/filemonitor:/filemonitor:rw \
   -v /mnt/user/Media:/data:ro \
   stash-filemonitor:local
 ```
 
 If Stash library paths use `/data`, mount the relevant Unraid share to `/data`. If Stash uses `/mnt/user/Media`, mount the share to `/mnt/user/Media` instead.
+
+## Docker Guard Shim
+
+Upstream FileMonitor exits when it detects Docker because some Docker setups do not deliver `watchdog` file events reliably. This image leaves that guard in place unless `FILEMONITOR_ALLOW_DOCKER=true`.
+
+On Unraid/Linux bind mounts, file events may work correctly. After enabling the shim, test by creating, renaming, and deleting a file under the mounted media path and confirming FileMonitor logs the event.
 
 ## Optional Docker Mapping Config
 
@@ -62,6 +69,7 @@ docker run -d \
   --network host \
   -e STASH_URL="http://127.0.0.1:9999" \
   -e STASH_API_KEY="YOUR_API_KEY" \
+  -e FILEMONITOR_ALLOW_DOCKER="true" \
   -e FILEMONITOR_DOCKER_CONFIG="/config/docker-compose.yml" \
   -v /mnt/user/appdata/stash/plugins/community/filemonitor:/filemonitor:rw \
   -v /mnt/user/appdata/stash-filemonitor:/config:ro \
